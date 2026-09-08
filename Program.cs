@@ -1,23 +1,40 @@
+using BackendTZ.Data;
+using BackendTZ.Extensions;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddConfiguredCors(builder.Configuration);
+builder.Services.AddSwaggerWithJwt();
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+// Configure SQLite database connection
+builder.Services.AddDbContext<BookingDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// DI Container registrations for repositories
+builder.Services.AddRepositories();
+
+// DI Container registrations for services
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Conference Room Booking API v1");
+    });
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowConfiguredOrigins");
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
