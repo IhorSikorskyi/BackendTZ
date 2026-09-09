@@ -1,6 +1,9 @@
 using BackendTZ.Data;
 using BackendTZ.Extensions;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 

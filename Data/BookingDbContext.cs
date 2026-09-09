@@ -1,19 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BackendTZ.Entities;
+﻿using BackendTZ.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendTZ.Data;
 
 public class BookingDbContext(DbContextOptions<BookingDbContext> options) : DbContext(options)
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Room> Rooms { get; set; }
-    public DbSet<Booking> Bookings { get; set; }
-    public DbSet<Service> Services { get; set; }
-    public DbSet<RoomService> RoomServices { get; set; } 
-    public DbSet<BookingService> BookingServices { get; set; }
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Room> Rooms => Set<Room>();
+    public DbSet<Service> Services => Set<Service>();
+    public DbSet<RoomService> RoomServices => Set<RoomService>();
+    public DbSet<Booking> Bookings => Set<Booking>();
+    public DbSet<BookingService> BookingServices => Set<BookingService>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingDbContext).Assembly);
     }
 }
