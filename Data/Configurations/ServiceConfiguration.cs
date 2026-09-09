@@ -24,8 +24,7 @@ public class ServiceConfiguration : BaseEntityConfiguration<Service>
 
         builder.Property(s => s.Description)
             .HasColumnName("description")
-            .HasMaxLength(1000)
-            .IsRequired();
+            .HasMaxLength(1000);
 
         builder.Property(s => s.Price)
             .HasColumnName("price")

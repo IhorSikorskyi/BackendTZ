@@ -22,6 +22,9 @@ builder.Services.AddRepositories();
 // DI Container registrations for services
 builder.Services.AddApplicationServices();
 
+// DI Container registrations for data seeding
+builder.Services.AddDataSeeding();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +35,8 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Conference Room Booking API v1");
     });
+
+    await app.Services.SeedDatabaseAsync();
 }
 
 app.UseHttpsRedirection();

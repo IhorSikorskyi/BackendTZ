@@ -1,6 +1,6 @@
 ﻿namespace BackendTZ.DTOs.Responses;
 
-public struct RoomResponse
+public record RoomResponse
 {
     
 }

@@ -16,4 +16,22 @@ public class BookingDbContext(DbContextOptions<BookingDbContext> options) : DbCo
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingDbContext).Assembly);
     }
+
+    public override int SaveChanges()
+    {
+        var now = DateTime.Now;
+
+        foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+        {
+            switch (entry.State)
+            {
+                case EntityState.Added:
+                    entry.Entity.CreatedAt = now;
+                    break;
+            }
+        }
+
+        return base.SaveChanges();
+
+    }
 }

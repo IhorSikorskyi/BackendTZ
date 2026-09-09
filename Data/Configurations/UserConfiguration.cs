@@ -41,6 +41,7 @@ public class UserConfiguration : BaseEntityConfiguration<User>
         builder.Property(u => u.Role)
             .HasColumnName("role")
             .HasConversion<string>()
+            .HasDefaultValue(Role.User)
             .IsRequired();
     }
 }

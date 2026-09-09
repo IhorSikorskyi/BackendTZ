@@ -1,6 +1,6 @@
 ﻿namespace BackendTZ.DTOs.Requests;
 
-public struct CreateRoomRequest
+public record CreateRoomRequest
 {
     
 }
