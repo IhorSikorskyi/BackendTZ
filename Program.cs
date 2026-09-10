@@ -2,6 +2,7 @@ using BackendTZ.Data;
 using BackendTZ.Extensions;
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
+using BackendTZ.Services.Implementations;
 
 Env.Load();
 
@@ -24,6 +25,9 @@ builder.Services.AddApplicationServices();
 
 // DI Container registrations for data seeding
 builder.Services.AddDataSeeding();
+
+// Register the RefreshTokenCleanupService as a hosted service
+builder.Services.AddHostedService<RefreshTokenCleanupService>();
 
 var app = builder.Build();
 

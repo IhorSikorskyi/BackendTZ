@@ -13,5 +13,7 @@ public interface IJwtTokenGenerator
     /// </summary>
     /// <param name="user">The user for whom to generate the token.</param>
     /// <returns>A JWT token as a string.</returns>
-    TokenResponse GenerateToken(User user);
+    AccessTokenResult GenerateAccessToken(User user);
 }
+
+public record AccessTokenResult(string AccessToken, DateTime ExpiresAt);

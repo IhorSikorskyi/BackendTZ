@@ -15,6 +15,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IBookingService, BookingService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         return services;
     }
 }

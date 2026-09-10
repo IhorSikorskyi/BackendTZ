@@ -12,6 +12,7 @@ public class User : BaseEntity
     public Role Role { get; set; } = Role.User;
 
     public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }
 
 public enum Role

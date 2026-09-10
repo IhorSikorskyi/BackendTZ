@@ -13,10 +13,12 @@ public abstract record AuthResponse;
 /// </summary>
 /// <param name="AccessToken">The JWT access token to be used for authenticated requests.</param>
 /// <param name="ExpiresAt">The UTC date and time when the access token expires.</param>
+/// <param name="RefreshToken">The refresh token to be used for obtaining a new access token.</param>
 /// <param name="User">Basic information about the authenticated user.</param>
 public record TokenResponse(
     string AccessToken,
     DateTime ExpiresAt,
+    string RefreshToken,
     UserResponse User
 ) : AuthResponse;
 

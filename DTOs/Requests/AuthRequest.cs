@@ -44,3 +44,9 @@ public record LoginRequest(
     [property: Required, MinLength(8), MaxLength(100)]
     string Password
 ) : AuthRequest;
+
+/// <summary>
+/// Request payload for refreshing an access token using a valid refresh token.
+/// </summary>
+/// <param name="RefreshToken"></param>
+public record RefreshRequest([property: Required] string RefreshToken);

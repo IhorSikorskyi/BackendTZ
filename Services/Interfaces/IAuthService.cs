@@ -25,9 +25,18 @@ public interface IAuthService
     Task<TokenResponse> LoginAsync(LoginRequest request, CancellationToken ct = default);
 
     /// <summary>
-    /// Logs out the currently authenticated user.
+    /// Refreshes the access token using a valid refresh token.
     /// </summary>
+    /// <param name="rawRefreshToken">The raw refresh token provided by the client.</param>
     /// <param name="ct">A cancellation token.</param>
-    /// <returns>A <see cref="TokenResponse"/> containing the access token and user information.</returns>
-    Task<TokenResponse> LogoutAsync(CancellationToken ct = default);
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task LogoutAsync(string rawRefreshToken, CancellationToken ct = default);
+
+    /// <summary>
+    /// Refreshes the access token using a valid refresh token.
+    /// </summary>
+    /// <param name="rawRefreshToken">The raw refresh token provided by the client.</param>
+    /// <param name="ct">A cancellation token.</param>
+    /// <returns>A <see cref="TokenResponse"/> containing the new access token and user information.</returns>
+    Task<TokenResponse> RefreshAccessTokenAsync(string rawRefreshToken, CancellationToken ct = default);
 }

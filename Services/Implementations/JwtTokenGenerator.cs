@@ -9,16 +9,17 @@ using System.Text;
 namespace BackendTZ.Services.Implementations;
 
 /// <summary>
-/// Represents a service for generating JWT tokens for authenticated users.
+/// Represents a service for generating JWT access tokens and associated refresh tokens for authenticated users.
 /// </summary>
 /// <param name="configuration">The application configuration.</param>
 public class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerator
 {
     /// <inheritdoc/>
-    public TokenResponse GenerateToken(User user)
+    public AccessTokenResult GenerateAccessToken(User user)
     {
-        var expiresAt = DateTime.UtcNow.AddHours(
+        var expiresAt = DateTime.UtcNow.AddMinutes(
             Convert.ToDouble(configuration["AppSettings:ExpirationTime"]));
+
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -28,11 +29,10 @@ public class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerato
 
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(
-                configuration["AppSettings:AccessToken"]!));
+                configuration["AppSettings:AccessToken"]
+                ?? throw new InvalidOperationException("AppSettings:AccessToken не налаштовано.")));
 
-        var credentials = new SigningCredentials(
-            key,
-            SecurityAlgorithms.HmacSha256);
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
             issuer: configuration["AppSettings:Issuer"],
@@ -41,12 +41,8 @@ public class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerato
             expires: expiresAt,
             signingCredentials: credentials);
 
-        var accessToken = new JwtSecurityTokenHandler()
-            .WriteToken(token);
+        var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return new TokenResponse(
-            AccessToken: accessToken,
-            ExpiresAt: expiresAt,
-            User: new UserResponse(user.Id, user.Name, user.Email, user.Role));
+        return new AccessTokenResult(accessToken, expiresAt);
     }
 }

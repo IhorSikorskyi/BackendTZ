@@ -11,6 +11,7 @@ public class BookingDbContext(DbContextOptions<BookingDbContext> options) : DbCo
     public DbSet<RoomService> RoomServices => Set<RoomService>();
     public DbSet<Booking> Bookings => Set<Booking>();
     public DbSet<BookingService> BookingServices => Set<BookingService>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
