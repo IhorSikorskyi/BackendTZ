@@ -16,6 +16,10 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+        services.AddScoped<IRoomManagementService, RoomManagementService>();
+        services.AddScoped<IServiceManagementService, ServiceManagementService>();
+        services.AddScoped<IPricingService, PricingService>();
+        services.AddScoped<IReportService, ReportService>();
         return services;
     }
 }

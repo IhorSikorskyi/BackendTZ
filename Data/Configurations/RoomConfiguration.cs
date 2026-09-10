@@ -30,8 +30,9 @@ public class RoomConfiguration : BaseEntityConfiguration<Room>
             .HasPrecision(18, 2)
             .IsRequired();
 
-        builder.Property(r => r.IsActive)
-            .HasColumnName("is_active")
+        builder.Property(r => r.IsAvailable)
+            .HasColumnName("is_available")
+            .HasDefaultValue(true)
             .IsRequired();
     }
 }

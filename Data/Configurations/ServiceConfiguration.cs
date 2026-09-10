@@ -30,5 +30,10 @@ public class ServiceConfiguration : BaseEntityConfiguration<Service>
             .HasColumnName("price")
             .HasPrecision(18, 2)
             .IsRequired();
+
+        builder.Property(s => s.IsActive)
+            .HasColumnName("is_active")
+            .HasDefaultValue(true)
+            .IsRequired();
     }
 }
