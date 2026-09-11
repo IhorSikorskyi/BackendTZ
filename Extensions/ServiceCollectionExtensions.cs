@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BackendTZ.Extensions;
 
+/// <summary>
+/// Provides extension methods for configuring services in the application, including JWT authentication, Swagger documentation, and CORS policy.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
     private const string BearerSchemeId = "Bearer";

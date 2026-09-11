@@ -2,6 +2,9 @@
 
 namespace BackendTZ.Repositories.Interfaces;
 
+/// <summary>
+/// Represents a repository for managing User entities in the database.
+/// </summary>
 public interface IUserRepository : IRepository<User>
 {
     /// <summary>

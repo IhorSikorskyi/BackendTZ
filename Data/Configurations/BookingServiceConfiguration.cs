@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BackendTZ.Data.Configurations;
 
+/// <summary>
+/// Represents the configuration for the BookingService entity in the database.
+/// </summary>
 public class BookingServiceConfiguration : IEntityTypeConfiguration<BookingService>
 {
+    /// <summary>
+    /// Configures the BookingService entity in the database.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<BookingService> builder)
     {
         builder.ToTable("booking_services");

@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BackendTZ.Data.Configurations;
 
+/// <summary>
+/// Represents the configuration for the RoomService entity in the database.
+/// </summary>
 public class RoomServiceConfiguration : IEntityTypeConfiguration<RoomService>
 {
+    /// <summary>
+    /// Configures the RoomService entity in the database.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<RoomService> builder)
     {
         builder.ToTable("room_services");

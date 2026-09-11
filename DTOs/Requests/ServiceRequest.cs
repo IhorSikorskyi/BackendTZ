@@ -28,6 +28,7 @@ public record CreateServiceRequest(
 /// Request payload for updating an existing additional service.
 /// </summary>
 /// <param name="Name">The updated name of the service.</param>
+/// <param name="Description">The updated description of the service.</param>
 /// <param name="Price">The updated price of the service in UAH.</param>
 public record UpdateServiceRequest(
     [property: MaxLength(100)]

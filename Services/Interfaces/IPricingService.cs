@@ -2,6 +2,9 @@
 
 namespace BackendTZ.Services.Interfaces;
 
+/// <summary>
+/// Defines the contract for a pricing service that calculates the total rental cost for a booking, including time-based adjustments and additional services.
+/// </summary>
 public interface IPricingService
 {
     /// <summary>

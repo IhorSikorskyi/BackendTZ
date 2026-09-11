@@ -5,15 +5,23 @@ using BackendTZ.Exceptions;
 namespace BackendTZ.Middleware;
 
 /// <summary>
-/// Централізована обробка необроблених винятків для всього API.
-/// Перехоплює виключення з усього конвеєра запитів і повертає
-/// уніфіковану відповідь клієнту, приховуючи внутрішні деталі реалізації.
+/// Middleware for handling exceptions in the application.
+/// It catches exceptions thrown during the request processing pipeline and returns
+/// a standardized error response to the client.
 /// </summary>
+/// <param name="next">The next middleware in the pipeline.</param>
+/// <param name="logger">The logger instance.</param>
+/// <param name="environment">The hosting environment.</param>
 public class ExceptionHandlingMiddleware(
     RequestDelegate next,
     ILogger<ExceptionHandlingMiddleware> logger,
     IHostEnvironment environment)
 {
+    /// <summary>
+    /// Invokes the middleware to handle exceptions during the request processing.
+    /// </summary>
+    /// <param name="context">The HTTP context.</param>
+    /// <returns>A task that represents the completion of request processing.</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         try
@@ -32,7 +40,7 @@ public class ExceptionHandlingMiddleware(
 
         logger.LogError(
             exception,
-            "Необроблений виняток типу {ExceptionType} під час обробки запиту {Method} {Path}",
+            "Unhandled exception of type {ExceptionType} while processing request {Method} {Path}",
             exception.GetType().Name,
             context.Request.Method,
             context.Request.Path);
@@ -41,8 +49,6 @@ public class ExceptionHandlingMiddleware(
         {
             status = (int)statusCode,
             title,
-            // Деталі реального повідомлення показуємо лише в Development,
-            // щоб не розкривати внутрішню структуру системи клієнту в проді
             detail = environment.IsDevelopment() ? exception.Message : null,
             traceId = context.TraceIdentifier
         };

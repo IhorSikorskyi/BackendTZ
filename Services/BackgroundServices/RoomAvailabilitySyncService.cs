@@ -15,6 +15,11 @@ public class RoomAvailabilitySyncService(
     IConfiguration configuration,
     ILogger<RoomAvailabilitySyncService> logger) : BackgroundService
 {
+    /// <summary>
+    /// Executes the background service, periodically synchronizing the availability of rooms based on their bookings.
+    /// </summary>
+    /// <param name="stoppingToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var minutes = configuration.GetValue("AppSettings:RoomAvailabilitySync", defaultValue: 30);

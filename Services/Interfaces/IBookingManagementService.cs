@@ -3,6 +3,9 @@ using BackendTZ.DTOs.Responses;
 
 namespace BackendTZ.Services.Interfaces;
 
+/// <summary>
+/// Defines the contract for managing bookings, including creating, changing, confirming, cancelling, and retrieving booking details.
+/// </summary>
 public interface IBookingManagementService
 {
     /// <summary>

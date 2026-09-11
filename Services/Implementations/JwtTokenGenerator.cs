@@ -1,5 +1,4 @@
-﻿using BackendTZ.DTOs.Responses;
-using BackendTZ.Entities;
+﻿using BackendTZ.Entities;
 using BackendTZ.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

@@ -12,6 +12,7 @@ public abstract record RoomResponse;
 /// <param name="Name">The name of the room.</param>
 /// <param name="Capacity">The maximum capacity, in people.</param>
 /// <param name="BaseHourlyRate">The base rental cost per hour, in UAH.</param>
+/// <param name="IsAvailable">Indicates whether the room is currently available for booking.</param>
 /// <param name="Services">The additional services available in this room.</param>
 public record RoomDetailsResponse(
     Guid Id,

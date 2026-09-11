@@ -1,5 +1,8 @@
 ﻿namespace BackendTZ.Repositories.Interfaces;
 
+/// <summary>
+/// Defines a contract for a unit of work that manages the persistence of changes to the database.
+/// </summary>
 public interface IUnitOfWork
 {
     /// <summary>

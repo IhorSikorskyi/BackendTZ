@@ -2,6 +2,9 @@
 
 namespace BackendTZ.Repositories.Interfaces;
 
+/// <summary>
+/// Defines the interface for a repository that manages Service entities in the database.
+/// </summary>
 public interface IServiceRepository : IRepository<Service>
 {
     /// <summary>

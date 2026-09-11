@@ -2,6 +2,9 @@
 
 namespace BackendTZ.Repositories.Interfaces;
 
+/// <summary>
+/// Defines the interface for a repository that manages Room entities in the database.
+/// </summary>
 public interface IRoomRepository : IRepository<Room>
 {
     /// <summary>
@@ -30,4 +33,17 @@ public interface IRoomRepository : IRepository<Room>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>True if the room has active bookings; otherwise, false.</returns>
     Task<bool> HasActiveBookingsAsync(Guid roomId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Loads rooms, optionally including soft-deleted (IsActive = false) ones and/or
+    /// filtered to a single room, for reports that need a full room roster (e.g. utilization).
+    /// </summary>
+    /// <param name="includeInactive">Whether to include inactive (soft-deleted) rooms.</param>
+    /// <param name="roomId">An optional room ID to filter the results to a specific room.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A read-only list of rooms that match the specified criteria.</returns> 
+    Task<IReadOnlyList<Room>> GetRoomsAsync(
+        bool includeInactive,
+        Guid? roomId,
+        CancellationToken cancellationToken);
 }

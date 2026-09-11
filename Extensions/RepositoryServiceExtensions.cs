@@ -3,6 +3,9 @@ using BackendTZ.Repositories.Interfaces;
 
 namespace BackendTZ.Extensions;
 
+/// <summary>
+/// Provides extension methods for adding repository services to the service collection.
+/// </summary>
 public static class RepositoryServiceExtensions
 {
     /// <summary>
@@ -18,8 +21,6 @@ public static class RepositoryServiceExtensions
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IRoomRepository, RoomRepository>();
         services.AddScoped<IBookingRepository, BookingRepository>();
-        services.AddScoped<IBookingServiceRepository, BookingServiceRepository>();
-        services.AddScoped<IRoomServiceRepository, RoomServiceRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         return services;
     }

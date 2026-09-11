@@ -2,6 +2,9 @@
 
 namespace BackendTZ.Repositories.Interfaces;
 
+/// <summary>
+/// Defines the interface for a repository that manages Booking entities in the database.
+/// </summary>
 public interface IBookingRepository : IRepository<Booking>
 {
     /// <summary>
@@ -25,4 +28,19 @@ public interface IBookingRepository : IRepository<Booking>
     Task<bool> IsAvailableAsync(
         Guid roomId, DateTime requestedStart, DateTime requestedEnd,
         Guid? excludeBookingId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Loads bookings whose start time falls within [periodStartInclusive, periodEndExclusive),
+    /// including Room, User, and BookingServices+Service navigation properties needed for reporting.
+    /// </summary>
+    /// <param name="periodStartInclusive">The start of the period (inclusive) to filter bookings.</param>
+    /// <param name="periodEndExclusive">The end of the period (exclusive) to filter bookings.</param>
+    /// <param name="roomId">An optional room ID to filter bookings by a specific room.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A read-only list of bookings that fall within the specified period and match the optional room filter.</returns>
+    Task<IReadOnlyList<Booking>> GetBookingsForPeriodAsync(
+        DateTime periodStartInclusive,
+        DateTime periodEndExclusive,
+        Guid? roomId,
+        CancellationToken cancellationToken);
 }

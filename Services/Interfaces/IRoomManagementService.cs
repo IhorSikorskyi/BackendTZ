@@ -3,6 +3,9 @@ using BackendTZ.DTOs.Responses;
 
 namespace BackendTZ.Services.Interfaces;
 
+/// <summary>
+/// Defines the contract for managing rooms, including creating, updating, deleting, retrieving, and finding available rooms.
+/// </summary>
 public interface IRoomManagementService
 {
     /// <summary>

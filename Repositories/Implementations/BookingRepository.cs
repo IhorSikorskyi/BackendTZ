@@ -40,4 +40,26 @@ public class BookingRepository(BookingDbContext context) : Repository<Booking>(c
 
         return !hasConflict;
     }
+
+    ///<inheritdoc/>
+    public async Task<IReadOnlyList<Booking>> GetBookingsForPeriodAsync(
+        DateTime periodStartInclusive,
+        DateTime periodEndExclusive,
+        Guid? roomId,
+        CancellationToken cancellationToken)
+    {
+        var query = context.Bookings
+            .Include(b => b.Room)
+            .Include(b => b.User)
+            .Include(b => b.BookingServices)
+            .ThenInclude(bs => bs.Service)
+            .Where(b => b.StartTime >= periodStartInclusive && b.StartTime < periodEndExclusive);
+
+        if (roomId.HasValue)
+        {
+            query = query.Where(b => b.RoomId == roomId.Value);
+        }
+
+        return await query.ToListAsync(cancellationToken);
+    }
 }

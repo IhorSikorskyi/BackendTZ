@@ -1,8 +1,13 @@
-﻿using BackendTZ.Services.Interfaces;
+﻿using BackendTZ.Entities;
 using BackendTZ.Services.Implementations;
+using BackendTZ.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace BackendTZ.Extensions;
 
+/// <summary>
+/// Provides extension methods for adding application services to the service collection.
+/// </summary>
 public static class ApplicationServiceExtensions
 {
     /// <summary>
@@ -14,6 +19,7 @@ public static class ApplicationServiceExtensions
     {
         services.AddScoped<IBookingManagementService, BookingManagementService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<IRoomManagementService, RoomManagementService>();

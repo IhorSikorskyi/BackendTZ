@@ -14,6 +14,11 @@ public class RefreshTokenCleanupService(
     IConfiguration configuration
     ) : BackgroundService
 {
+    /// <summary>
+    /// Executes the background service to clean up old refresh tokens from the database.
+    /// </summary>
+    /// <param name="stoppingToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         logger.LogInformation("RefreshTokenCleanupService is starting.");

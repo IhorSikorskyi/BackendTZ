@@ -3,11 +3,15 @@ using System.Security.Claims;
 
 namespace BackendTZ.Controllers;
 
+/// <summary>
+/// Base controller class that provides common functionality for all API controllers.
+/// </summary>
 public abstract class BaseController : ControllerBase
 {
-    protected const string InvalidMessage = "Invalid user id in token.";
-    protected const string MessageStatus500 = "An error occurred while processing your request.";
-
+    /// <summary>
+    /// Gets the current user's ID from the claims in the JWT token.
+    /// </summary>
+    /// <returns>The user's ID if available; otherwise, null.</returns>
     protected Guid? GetCurrentUserId()
     {
         var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value

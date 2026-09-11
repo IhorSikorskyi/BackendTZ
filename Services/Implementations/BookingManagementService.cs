@@ -91,6 +91,7 @@ public class BookingManagementService(
                                 || request.StartTime != null
                                 || request.EndTime != null;
 
+        EnsureRoomCapacity(booking, request.NumberOfGuests ?? booking.Room.Capacity);
         ApplyRoomChange(booking, request);
         ApplyDateTimeChange(booking, request);
 
@@ -180,6 +181,7 @@ public class BookingManagementService(
             || request.Date != null
             || request.StartTime != null
             || request.EndTime != null
+            || request.NumberOfGuests != null
             || (request.ServiceIds != null && request.ServiceIds.Count > 0);
 
         if (!hasAnyField)
@@ -210,6 +212,8 @@ public class BookingManagementService(
     /// <param name="request">The change booking request containing the new room information.</param>
     private static void ApplyRoomChange(Booking booking, ChangeBookingRequest request)
     {
+        EnsureRoomCapacity(booking, request.NumberOfGuests ?? booking.Room.Capacity);
+
         if (request.RoomId != null)
         {
             booking.Room.IsAvailable = true;
@@ -250,22 +254,11 @@ public class BookingManagementService(
         booking.EndTime = newDate.ToDateTime(newEndTime);
     }
 
-    /// <summary>
-    /// Ensures that the room is available for the requested time period. If the room is not available, an InvalidOperationException is thrown.
-    /// </summary>
-    /// <param name="booking">The booking to check for room availability.</param>
-    /// <param name="bookingId">The ID of the booking.</param>
-    /// <param name="cancellationToken">A cancellation token.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    /// <exception cref="InvalidOperationException">Thrown if the room is not available for the requested time period.</exception>
-    private async Task EnsureRoomAvailableAsync(Booking booking, Guid bookingId, CancellationToken cancellationToken)
+    private static void EnsureRoomCapacity(Booking booking, int numberOfGuests)
     {
-        var isAvailable = await bookingRepository.IsAvailableAsync(
-            booking.RoomId, booking.StartTime, booking.EndTime, bookingId, cancellationToken);
-
-        if (!isAvailable)
+        if (booking.Room.Capacity < numberOfGuests)
         {
-            throw new InvalidOperationException("The room is not available for the requested time period.");
+            throw new InvalidOperationException("The room does not have enough capacity for the number of guests.");
         }
     }
 
@@ -301,6 +294,26 @@ public class BookingManagementService(
             services,
             cost
         );
+    }
+
+
+    /// <summary>
+    /// Ensures that the room is available for the requested time period. If the room is not available, an InvalidOperationException is thrown.
+    /// </summary>
+    /// <param name="booking">The booking to check for room availability.</param>
+    /// <param name="bookingId">The ID of the booking.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the room is not available for the requested time period.</exception>
+    private async Task EnsureRoomAvailableAsync(Booking booking, Guid bookingId, CancellationToken cancellationToken)
+    {
+        var isAvailable = await bookingRepository.IsAvailableAsync(
+            booking.RoomId, booking.StartTime, booking.EndTime, bookingId, cancellationToken);
+
+        if (!isAvailable)
+        {
+            throw new InvalidOperationException("The room is not available for the requested time period.");
+        }
     }
 
     /// <summary>

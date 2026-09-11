@@ -12,6 +12,7 @@ namespace BackendTZ.Services.Implementations;
 /// </summary>
 /// <param name="refreshTokenRepository">The repository for managing refresh tokens.</param>
 /// <param name="unitOfWork">The unit of work for managing transactions.</param>
+/// <param name="configuration">The application configuration.</param>
 public class RefreshTokenService(
     IRefreshTokenRepository refreshTokenRepository,
     IUnitOfWork unitOfWork,
