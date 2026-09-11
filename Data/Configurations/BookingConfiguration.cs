@@ -31,6 +31,21 @@ public class BookingConfiguration : BaseEntityConfiguration<Booking>
             .HasColumnName("end_time")
             .IsRequired();
 
+        builder.Property(b => b.BaseCost)
+            .HasColumnName("base_cost")
+            .HasPrecision(18, 2)
+            .IsRequired();
+
+        builder.Property(b => b.TimeAdjustment)
+            .HasColumnName("time_adjustment")
+            .HasPrecision(18, 2)
+            .IsRequired();
+
+        builder.Property(b => b.ServicesCost)
+            .HasColumnName("services_cost")
+            .HasPrecision(18, 2)
+            .IsRequired();
+
         builder.Property(b => b.TotalCost)
             .HasColumnName("total_cost")
             .HasPrecision(18, 2)

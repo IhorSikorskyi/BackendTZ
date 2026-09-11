@@ -13,6 +13,9 @@ public class Booking : BaseEntity
 
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
+    public decimal BaseCost { get; set; }
+    public decimal TimeAdjustment { get; set; }
+    public decimal ServicesCost { get; set; }
     public decimal TotalCost { get; set; }
     public BookingStatus Status { get; set; } = BookingStatus.Pending;
 

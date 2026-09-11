@@ -1,7 +1,13 @@
 ﻿using BackendTZ.Repositories.Interfaces;
 
-namespace BackendTZ.Services.Implementations;
+namespace BackendTZ.Services.BackgroundServices;
 
+/// <summary>
+/// Represents a background service that periodically cleans up old refresh tokens from the database.
+/// </summary>
+/// <param name="logger">The logger used to log information and errors.</param>
+/// <param name="serviceScopeFactory">The factory used to create service scopes.</param>
+/// <param name="configuration">The application configuration.</param>
 public class RefreshTokenCleanupService(
     ILogger<RefreshTokenCleanupService> logger,
     IServiceScopeFactory serviceScopeFactory,
@@ -29,6 +35,11 @@ public class RefreshTokenCleanupService(
         }
     }
 
+    /// <summary>
+    /// Runs the cleanup operation to remove old refresh tokens from the database.
+    /// </summary>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     internal async Task RunCleanupAsync(CancellationToken cancellationToken)
     {
         try

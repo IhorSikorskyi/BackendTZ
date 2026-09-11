@@ -34,10 +34,19 @@ public class ServiceRepository(BookingDbContext context) : Repository<Service>(c
     }
 
     /// <inheritdoc/>
-    public async Task<IList<Service>> GetAllActiveAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<Service>> GetAllActiveAsync(CancellationToken cancellationToken)
     {
         return await context.Services
             .Where(s => s.IsActive)
+            .ToListAsync(cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<IReadOnlyList<Service>> GetByIdsAsync
+        (IEnumerable<Guid> ids, CancellationToken cancellationToken)
+    {
+        return await context.Services
+            .Where(s => ids.Contains(s.Id) && s.IsActive)
             .ToListAsync(cancellationToken);
     }
 }

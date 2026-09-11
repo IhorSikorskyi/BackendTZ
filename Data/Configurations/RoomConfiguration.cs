@@ -34,5 +34,10 @@ public class RoomConfiguration : BaseEntityConfiguration<Room>
             .HasColumnName("is_available")
             .HasDefaultValue(true)
             .IsRequired();
+
+        builder.Property(r => r.IsActive)
+            .HasColumnName("is_active")
+            .HasDefaultValue(true)
+            .IsRequired();
     }
 }

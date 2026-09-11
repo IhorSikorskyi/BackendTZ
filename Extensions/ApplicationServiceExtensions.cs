@@ -12,7 +12,7 @@ public static class ApplicationServiceExtensions
     /// <returns></returns>
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IBookingService, BookingService>();
+        services.AddScoped<IBookingManagementService, BookingManagementService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();

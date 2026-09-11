@@ -25,5 +25,13 @@ public interface IServiceRepository : IRepository<Service>
     /// </summary>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A list of all active services.</returns>
-    Task<IList<Service>> GetAllActiveAsync(CancellationToken cancellationToken);
+    Task<IReadOnlyList<Service>> GetAllActiveAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Gets services by their IDs asynchronously.
+    /// </summary>
+    /// <param name="ids">The IDs of the services to retrieve.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A list of services with the specified IDs.</returns>
+    Task<IReadOnlyList<Service>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
 }

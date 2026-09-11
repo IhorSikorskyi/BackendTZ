@@ -2,7 +2,7 @@ using BackendTZ.Data;
 using BackendTZ.Extensions;
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
-using BackendTZ.Services.Implementations;
+using BackendTZ.Services.BackgroundServices;
 
 Env.Load();
 
@@ -28,6 +28,9 @@ builder.Services.AddDataSeeding();
 
 // Register the RefreshTokenCleanupService as a hosted service
 builder.Services.AddHostedService<RefreshTokenCleanupService>();
+
+// Register the RoomAvailabilitySyncService as a hosted service
+builder.Services.AddHostedService<RoomAvailabilitySyncService>();
 
 var app = builder.Build();
 

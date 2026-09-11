@@ -23,7 +23,7 @@ public class RoomRepository(BookingDbContext context) : Repository<Room>(context
         DateTime searchStart, DateTime searchEnd, int minCapacity, CancellationToken cancellationToken)
     {
         return await context.Rooms
-            .Where(r => r.IsAvailable && r.Capacity >= minCapacity)
+            .Where(r => r.IsAvailable && r.IsActive && r.Capacity >= minCapacity)
             .Where(r => !r.Bookings.Any(b =>
                 b.Status != BookingStatus.Cancelled &&
                 b.StartTime < searchEnd &&

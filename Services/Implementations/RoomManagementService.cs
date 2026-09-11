@@ -102,13 +102,13 @@ public class RoomManagementService(
         (Guid roomId, CancellationToken cancellationToken)
     {
         var room = await roomRepository.GetByIdAsync(roomId, cancellationToken)
-            ?? throw new InvalidOperationException($"Room with ID '{roomId}' does not exist.");
+                   ?? throw new InvalidOperationException($"Room with ID '{roomId}' does not exist.");
 
         var hasActiveBookings = await roomRepository.HasActiveBookingsAsync(roomId, cancellationToken);
 
         if (hasActiveBookings)
         {
-            room.IsAvailable = false;
+            room.IsActive = false;
             roomRepository.Update(room);
         }
         else
